@@ -32,11 +32,11 @@ function ItemsListWrapper({ openModal }: { openModal: (item: MenuItemType) => vo
   };
 
   return (
-    <Box className="flex h-fit flex-col items-start justify-start w-2/3 bg-background shadow-[rgba(0,_0,_0,_0.15)_0px_3px_8px]">
+    <Box className="flex h-fit flex-col items-start justify-start w-full md:w-2/3 bg-background shadow-[rgba(0,_0,_0,_0.15)_0px_3px_8px]">
       <Box className="flex items-center justify-center w-full">
         <nav className="flex items-center justify-start w-full p-6 space-x-4 bg-background">
           {filteredItems?.map((section) => (
-            <Box onClick={() => handleItemClick(section?.id)} className="flex flex-col items-center justify-center cursor-pointer h-36" key={section?.id}>
+            <Box onClick={() => handleItemClick(section?.id)} className="flex flex-col items-center justify-center overflow-hidden cursor-pointer sm:overflow-x-auto h-36" key={section?.id}>
               <Box className={`flex items-center justify-center overflow-hidden border-4 rounded-full w-28 h-28 ${selectedSection === section?.id ? 'border-primary' : 'border-white'}`}>
                 <img src={section?.images[0]?.image} alt={section?.name} className="object-cover w-28 h-28" />
               </Box>

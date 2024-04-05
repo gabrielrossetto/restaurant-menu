@@ -56,7 +56,7 @@ function Menu() {
 
       {!error && !loading && (
         <Box className="flex flex-col items-center justify-start w-full h-auto min-h-screen mt-1 bg-secondary">
-          <Box className="w-1/2">
+          <Box className="w-11/12 md:w-1/2">
             <TextField
               placeholder="Search menu items"
               variant="outlined"
@@ -75,9 +75,8 @@ function Menu() {
             />
           </Box>
 
-          <Box className="flex w-1/2 p-8 mt-1 space-x-4 bg-tertiary">
+          <Box className="flex flex-col w-full p-8 mt-1 space-x-4 md:flex-row md:w-1/2 bg-tertiary">
             <ItemsListWrapper openModal={openModal} />
-
             <CartSectionWrapper />
           </Box>
         </Box>

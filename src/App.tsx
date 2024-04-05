@@ -1,14 +1,13 @@
 import { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { useMediaQuery } from 'react-responsive';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSettings } from './store/actions/settingsActions';
 import { fetchMenu } from './store/actions/menuActions';
-import DesktopLayout from './components/templates/DesktopLayout';
-import MobileLayout from './components/templates/MobileLayout';
+import DefaultLayout from './components/DefaultLayout';
 import Menu from './pages/Menu';
 import Contact from './pages/Contact';
 import SignIn from './pages/SignIn';
+import ErrorPage from './pages/Error';
 import { PageComponentType } from "../src/@types/app";
 import { applyTheme } from './themes/utils';
 import { RootState } from './store/store';
@@ -20,18 +19,13 @@ import '@fontsource/roboto/700.css';
 
 function App() {
   const dispatch = useDispatch();
-  const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
   const settings = useSelector((state: RootState) => state.settings);
 
   const renderPage = (PageComponent: PageComponentType) => {
-    return isMobile ? (
-      <MobileLayout>
+    return (
+      <DefaultLayout>
         <PageComponent />
-      </MobileLayout>
-    ) : (
-      <DesktopLayout>
-        <PageComponent />
-      </DesktopLayout>
+      </DefaultLayout>
     );
   };
 
@@ -69,8 +63,7 @@ function App() {
         <Route path="/menu" element={renderPage(Menu)} />
         <Route path="/signin" element={renderPage(SignIn)} />
         <Route path="/contact" element={renderPage(Contact)} />
-        {/* TODO: Error Page */}
-        <Route path="*" element={renderPage(Menu)} />
+        <Route path="*" element={renderPage(ErrorPage)} />
       </Routes>
     </Router>
   )
