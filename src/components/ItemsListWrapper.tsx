@@ -1,9 +1,12 @@
-import { Accordion, AccordionDetails, AccordionSummary, Box } from "@mui/material";
-import { MenuDataType, MenuItemType } from "../@types/menu";
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useEffect, useRef, useState } from "react";
+import { useSelector } from 'react-redux';
+import { Accordion, AccordionDetails, AccordionSummary, Box } from "@mui/material";
+import { MenuItemType } from "../@types/menu";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { RootState } from '../store/store';
 
-function ItemsListWrapper({ menuData, openModal }: { menuData: MenuDataType | null, openModal: (item: MenuItemType) => void }) {
+function ItemsListWrapper({ openModal }: { openModal: (item: MenuItemType) => void }) {
+  const { menuData, searchFilter } = useSelector((state: RootState) => state.menu);
   const [selectedSection, setSelectedSection] = useState<number | null>(null);
   const accordionRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -12,6 +15,13 @@ function ItemsListWrapper({ menuData, openModal }: { menuData: MenuDataType | nu
       setSelectedSection(menuData.sections[0].id);
     }
   }, [menuData]);
+
+  const filteredItems = menuData?.sections?.map((section) => ({
+    ...section,
+    items: section.items.filter(item =>
+      item.name.toLowerCase().includes(searchFilter.toLowerCase())
+    ),
+  })).filter(section => section.items.length > 0);
 
   const handleItemClick = (id: number) => {
     setSelectedSection(id);
@@ -25,7 +35,7 @@ function ItemsListWrapper({ menuData, openModal }: { menuData: MenuDataType | nu
     <Box className="flex h-fit flex-col items-start justify-start w-2/3 bg-background shadow-[rgba(0,_0,_0,_0.15)_0px_3px_8px]">
       <Box className="flex items-center justify-center w-full">
         <nav className="flex items-center justify-start w-full p-6 space-x-4 bg-background">
-          {menuData?.sections?.map((section) => (
+          {filteredItems?.map((section) => (
             <Box onClick={() => handleItemClick(section?.id)} className="flex flex-col items-center justify-center cursor-pointer h-36" key={section?.id}>
               <Box className={`flex items-center justify-center overflow-hidden border-4 rounded-full w-28 h-28 ${selectedSection === section?.id ? 'border-primary' : 'border-white'}`}>
                 <img src={section?.images[0]?.image} alt={section?.name} className="object-cover w-28 h-28" />
@@ -39,7 +49,7 @@ function ItemsListWrapper({ menuData, openModal }: { menuData: MenuDataType | nu
       </Box>
 
       <Box className="w-full space-y-2 border-none bg-background">
-        {menuData?.sections?.map((section) => (
+        {filteredItems?.map((section) => (
           <Accordion
             defaultExpanded
             className="border-none"

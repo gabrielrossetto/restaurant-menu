@@ -12,12 +12,39 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addItem(state, action) {
-      state.items.push(action.payload);
+      const newItem = action.payload;
+      const existingItemIndex = state.items.findIndex(item => item.id === newItem.id);
+
+      if (existingItemIndex !== -1) {
+        if (
+          state.items[existingItemIndex].selectedModifierId !== newItem.selectedModifierId ||
+          state.items[existingItemIndex].selectedModifierPrice !== newItem.selectedModifierPrice
+        ) {
+          state.items.push(newItem);
+        } else {
+          state.items[existingItemIndex].quantity += newItem.quantity || 1;
+        }
+      } else {
+        state.items.push(newItem);
+      }
+
       state.total = calculateTotal(state.items);
     },
-    removeItem(state, action) {
-      state.items = state.items.filter(item => item.id !== action.payload.id);
-      state.total = calculateTotal(state.items);
+    incrementQuantity(state, action) {
+      const { id } = action.payload;
+      const item = state.items.find(item => item.id === id);
+      if (item) {
+        item.quantity = (item.quantity ?? 0) + 1;
+        state.total = calculateTotal(state.items);
+      }
+    },
+    decrementQuantity(state, action) {
+      const { id } = action.payload;
+      const item = state.items.find(item => item.id === id);
+      if (item && item.quantity && item.quantity > 1) {
+        item.quantity -= 1;
+        state.total = calculateTotal(state.items);
+      }
     },
     clearCart(state) {
       state.items = [];
@@ -35,6 +62,6 @@ const calculateTotal = (items: MenuItemType[]) => {
   return total;
 };
 
-export const { addItem, removeItem, clearCart } = cartSlice.actions;
+export const { addItem, incrementQuantity, decrementQuantity, clearCart } = cartSlice.actions;
 
 export default cartSlice.reducer;

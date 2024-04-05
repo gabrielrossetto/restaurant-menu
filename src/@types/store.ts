@@ -5,6 +5,7 @@ export interface MenuStateType {
   menuData: MenuDataType | null;
   loading: boolean;
   error: string | null;
+  searchFilter: string;
 }
 
 export interface SettingsStateType {

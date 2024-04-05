@@ -5,6 +5,7 @@ const initialState: MenuStateType = {
   menuData: null,
   loading: false,
   error: null,
+  searchFilter: '',
 };
 
 const menuSlice = createSlice({
@@ -23,9 +24,12 @@ const menuSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    setSearchFilter(state, action) {
+      state.searchFilter = action.payload;
+    },
   },
 });
 
-export const { fetchMenuDataStart, fetchMenuDataSuccess, fetchMenuDataFailure } = menuSlice.actions;
+export const { fetchMenuDataStart, fetchMenuDataSuccess, fetchMenuDataFailure, setSearchFilter } = menuSlice.actions;
 
 export default menuSlice.reducer;
