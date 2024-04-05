@@ -31,15 +31,33 @@ function NavBar() {
             </IconButton>
             <Drawer anchor="right" open={drawerOpen} onClose={handleCloseDrawer}>
               <List>
-                <ListItemButton onClick={() => handleItemClick('/menu')}>
-                  <ListItemText primary="MENU" />
-                </ListItemButton>
-                <ListItemButton onClick={() => handleItemClick('/signin')}>
-                  <ListItemText primary="ENTRAR" />
-                </ListItemButton>
-                <ListItemButton onClick={() => handleItemClick('/contact')}>
-                  <ListItemText primary="CONTATO" />
-                </ListItemButton>
+                <Link
+                  to="/menu"
+                  className={`w-32 text-center ${selectedItem === '/menu' ? 'border-b-4 border-white' : ''}`}
+                  onClick={() => setSelectedItem('/menu')}
+                >
+                  <ListItemButton onClick={() => handleItemClick('/menu')}>
+                    <ListItemText primary="MENU" />
+                  </ListItemButton>
+                </Link>
+                <Link
+                  to="/signin"
+                  className={`w-32 text-center ${selectedItem === '/signin' ? 'border-b-4 border-white' : ''}`}
+                  onClick={() => setSelectedItem('/signin')}
+                >
+                  <ListItemButton onClick={() => handleItemClick('/signin')}>
+                    <ListItemText primary="ENTRAR" />
+                  </ListItemButton>
+                </Link>
+                <Link
+                  to="/contact"
+                  className={`w-32 text-center ${selectedItem === '/contact' ? 'border-b-4 border-white' : ''}`}
+                  onClick={() => setSelectedItem('/contact')}
+                >
+                  <ListItemButton onClick={() => handleItemClick('/contact')}>
+                    <ListItemText primary="CONTATO" />
+                  </ListItemButton>
+                </Link>
               </List>
             </Drawer>
           </div>
