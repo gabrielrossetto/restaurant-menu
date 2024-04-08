@@ -1,0 +1,17 @@
+{
+  "basket": "Seu carrinho",
+  "items": "{{count}} items(s)",
+  "selectOption": "Selecione 1 opção",
+  "addToOrder": "Add no pedido",
+  "subTotal": "Sub total",
+  "total": "Total",
+  "checkout": "Finalizar agora",
+  "cartEmpty": "Seu carrinho está vazio",
+  "searchItemsPlaceholder": "Procurar itens do menu",
+  "pageNotFound": "Página não encontrada",
+  "availableSoon": "Disponível em breve",
+  "navMenu": "MENU",
+  "navContact": "CONTATO",
+  "navSignIn": "ENTRAR",
+  "viewAllergy": "Ver informações alérgicas"
+}

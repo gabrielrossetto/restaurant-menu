@@ -1,5 +1,6 @@
 import { fetchSettingsFailure, fetchSettingsStart, fetchSettingsSuccess } from '../reducers/settingsReducer';
 import { Dispatch } from 'redux';
+import i18n from '../../i18n';
 
 export const fetchSettings = () => {
   return async (dispatch: Dispatch) => {
@@ -10,6 +11,13 @@ export const fetchSettings = () => {
         throw new Error('Error getting settings');
       }
       const settings = await response.json();
+
+      if (settings.locale) {
+        i18n.changeLanguage(settings.locale);
+      }
+
+      console.log({ settings })
+
       dispatch(fetchSettingsSuccess(settings));
     } catch (error) {
       let message = 'Unknown Error'

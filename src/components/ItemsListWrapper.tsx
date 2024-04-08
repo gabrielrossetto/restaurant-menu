@@ -1,14 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from 'react-redux';
 import { Accordion, AccordionDetails, AccordionSummary, Box, Button } from "@mui/material";
-import { MenuItemType } from "../@types/menu";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { useTranslation } from 'react-i18next';
+import { MenuItemType } from "../@types/menu";
 import { RootState } from '../store/store';
 
 function ItemsListWrapper({ openModal }: { openModal: (item: MenuItemType) => void }) {
   const { menuData, searchFilter } = useSelector((state: RootState) => state.menu);
   const [selectedSection, setSelectedSection] = useState<number | null>(null);
   const accordionRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (menuData?.sections && menuData?.sections?.length > 0) {
@@ -85,7 +87,7 @@ function ItemsListWrapper({ openModal }: { openModal: (item: MenuItemType) => vo
         ))}
         <Box className="flex items-center justify-center">
           <Button variant="text" className="w-11/12 !text-primary !font-bold" onClick={() => { }}>
-            View allergy information
+            {t('viewAllergy')}
           </Button>
         </Box>
       </Box>

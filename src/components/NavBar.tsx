@@ -2,11 +2,13 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMediaQuery, useTheme, IconButton, Drawer, List, ListItemButton, ListItemText } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import { useTranslation } from 'react-i18next';
 
 function NavBar() {
   const [selectedItem, setSelectedItem] = useState('/menu');
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const { t } = useTranslation();
 
   const handleItemClick = (item: string) => {
     setSelectedItem(item);
@@ -24,7 +26,7 @@ function NavBar() {
           <div className="flex items-center justify-between w-full">
             <div className="w-8"></div>
             <span className="w-32 text-center text-white">
-              {selectedItem === '/menu' ? 'MENU' : selectedItem === '/signin' ? 'ENTRAR' : 'CONTATO'}
+              {selectedItem === '/menu' ? `${t('navMenu')}` : selectedItem === '/signin' ? `${t('navSignIn')}` : `${t('navContact')}`}
             </span>
             <IconButton onClick={handleOpenDrawer} className="!text-white">
               <MenuIcon />
@@ -37,7 +39,7 @@ function NavBar() {
                   onClick={() => setSelectedItem('/menu')}
                 >
                   <ListItemButton onClick={() => handleItemClick('/menu')}>
-                    <ListItemText primary="MENU" />
+                    <ListItemText primary={t('navMenu')} />
                   </ListItemButton>
                 </Link>
                 <Link
@@ -46,7 +48,7 @@ function NavBar() {
                   onClick={() => setSelectedItem('/signin')}
                 >
                   <ListItemButton onClick={() => handleItemClick('/signin')}>
-                    <ListItemText primary="ENTRAR" />
+                    <ListItemText primary={t('navSignIn')} />
                   </ListItemButton>
                 </Link>
                 <Link
@@ -55,7 +57,7 @@ function NavBar() {
                   onClick={() => setSelectedItem('/contact')}
                 >
                   <ListItemButton onClick={() => handleItemClick('/contact')}>
-                    <ListItemText primary="CONTATO" />
+                    <ListItemText primary={t('navContact')} />
                   </ListItemButton>
                 </Link>
               </List>

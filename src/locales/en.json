@@ -1,0 +1,17 @@
+{
+  "basket": "Your basket",
+  "items": "{{count}} item(s)",
+  "selectOption": "Select 1 option",
+  "addToOrder": "Add to order",
+  "subTotal": "Sub total",
+  "total": "Total",
+  "checkout": "Checkout now",
+  "cartEmpty": "Your cart is empty",
+  "searchItemsPlaceholder": "Search menu items",
+  "pageNotFound": "Page not found",
+  "availableSoon": "Available Soon",
+  "navMenu": "MENU",
+  "navContact": "CONTACT",
+  "navSignIn": "SIGNIN",
+  "viewAllergy": "View allergy information"
+}

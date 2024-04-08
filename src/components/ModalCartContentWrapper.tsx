@@ -3,12 +3,14 @@ import { Box, Button, IconButton } from "@mui/material";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircle from '@mui/icons-material/RemoveCircle';
 import CloseIcon from '@mui/icons-material/Close';
+import { useTranslation } from 'react-i18next';
 import { RootState } from '../store/store';
 import { incrementQuantity, decrementQuantity } from '../store/reducers/cartReducer';
 
 function ModalItemContentWrapper({ closeModal }: { closeModal: () => void }) {
   const dispatch = useDispatch();
   const { items, total } = useSelector((state: RootState) => state.cart);
+  const { t } = useTranslation();
 
   const handleIncrement = (id: number) => {
     dispatch(incrementQuantity({ id }));
@@ -28,7 +30,7 @@ function ModalItemContentWrapper({ closeModal }: { closeModal: () => void }) {
         </Box>
 
         <div className="flex items-center justify-center h-12 border-b-2">
-          <h1 className="text-lg font-medium text-textPrimary">Basket</h1>
+          <h1 className="text-lg font-medium text-textPrimary">{t('basket')}</h1>
         </div>
 
         {items && items?.length > 0 ? (
@@ -53,25 +55,25 @@ function ModalItemContentWrapper({ closeModal }: { closeModal: () => void }) {
             ))}
 
             <Box className="flex items-center justify-between w-full px-4 border-b-2 shadow bg-tertiary h-14">
-              <span className="text-textPrimary">Sub total</span>
+              <span className="text-textPrimary">{t('subTotal')}</span>
               <span className="font-medium text-textPrimary">{total}</span>
             </Box>
 
             <Box className="flex items-center justify-between w-full px-4 shadow bg-tertiary h-14">
-              <span className="text-2xl text-textPrimary">Total</span>
+              <span className="text-2xl text-textPrimary">{t('total')}</span>
               <span className="text-2xl font-medium text-textPrimary">{total}</span>
             </Box>
           </div>
         ) : (
           <Box className="flex flex-col items-center justify-center w-full py-6">
-            <span className="text-textSecondary">Seu carrinho está vazio</span>
+            <span className="text-textSecondary">{t('cartEmpty')}</span>
           </Box>
         )}
       </Box >
 
       <Box className="fixed bottom-0 left-0 right-0 p-4 md:hidden">
         <Button variant="contained" className="w-full !bg-primary !rounded-2xl" onClick={closeModal}>
-          Checkout now
+          {t('checkout')}
         </Button>
       </Box>
     </Box>

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { Box, TextField, InputAdornment, IconButton, Modal, Button } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import { useTranslation } from 'react-i18next';
 import { MenuItemType } from "../@types/menu";
 import ItemsListWrapper from "../components/ItemsListWrapper";
 import CartSectionWrapper from "../components/CartSectionWrapper";
@@ -19,6 +20,7 @@ function Menu() {
   const [isItemModalOpen, setIsItemModalOpen] = useState(false);
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const openItemModal = (product: MenuItemType) => {
     setSelectedProduct(product);
@@ -75,7 +77,7 @@ function Menu() {
         <Box className="flex flex-col items-center justify-start w-full h-auto min-h-screen mt-1 bg-secondary">
           <Box className="w-11/12 md:w-1/2">
             <TextField
-              placeholder="Search menu items"
+              placeholder={t('searchItemsPlaceholder')}
               variant="outlined"
               InputProps={{
                 startAdornment: (
@@ -100,7 +102,7 @@ function Menu() {
           {items?.length > 0 && (
             <Box className="fixed bottom-0 left-0 right-0 p-4 md:hidden">
               <Button variant="contained" className="w-full !bg-primary !rounded-2xl" onClick={openCartModal}>
-                Your basket • {items?.length} item(s)
+                {t('basket')} • {t('items', { count: items.length })}
               </Button>
             </Box>
           )}

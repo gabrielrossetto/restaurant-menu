@@ -2,12 +2,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { Box } from "@mui/material";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircle from '@mui/icons-material/RemoveCircle';
+import { useTranslation } from 'react-i18next';
 import { RootState } from '../store/store';
 import { incrementQuantity, decrementQuantity } from '../store/reducers/cartReducer';
 
 function CartSectionWrapper() {
   const { items, total } = useSelector((state: RootState) => state.cart);
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const handleIncrement = (id: number) => {
     dispatch(incrementQuantity({ id }));
@@ -20,7 +22,7 @@ function CartSectionWrapper() {
   return (
     <Box className="w-2/6 bg-background h-fit shadow-[rgba(0,_0,_0,_0.15)_0px_3px_8px] hidden md:block">
       <Box className="flex items-center justify-start w-full h-16 px-4 shadow bg-tertiary">
-        <h1 className="text-2xl font-medium text-textSecondary">Carrinho</h1>
+        <h1 className="text-2xl font-medium text-textSecondary">{t('basket')}</h1>
       </Box>
       {items && items?.length > 0 ? (
         <>
@@ -44,18 +46,18 @@ function CartSectionWrapper() {
           ))}
 
           <Box className="flex items-center justify-between w-full px-4 border-b-2 shadow bg-tertiary h-14">
-            <span className="text-textPrimary">Sub total</span>
+            <span className="text-textPrimary">{t('subTotal')}</span>
             <span className="font-medium text-textPrimary">{total}</span>
           </Box>
 
           <Box className="flex items-center justify-between w-full px-4 shadow bg-tertiary h-14">
-            <span className="text-2xl text-textPrimary">Total</span>
+            <span className="text-2xl text-textPrimary">{t('total')}</span>
             <span className="text-2xl font-medium text-textPrimary">{total}</span>
           </Box>
         </>
       ) : (
         <Box className="flex flex-col items-center justify-center w-full py-6">
-          <span className="text-textSecondary">Seu carrinho está vazio</span>
+          <span className="text-textSecondary">{t('cartEmpty')}</span>
         </Box>
       )}
     </Box>

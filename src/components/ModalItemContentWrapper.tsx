@@ -4,6 +4,7 @@ import { Box, Button, IconButton } from "@mui/material";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircle from '@mui/icons-material/RemoveCircle';
 import CloseIcon from '@mui/icons-material/Close';
+import { useTranslation } from 'react-i18next';
 import { MenuItemType } from "../@types/menu";
 import { addItem } from '../store/reducers/cartReducer';
 
@@ -11,6 +12,7 @@ function ModalItemContentWrapper({ selectedProduct, closeModal }: { selectedProd
   const dispatch = useDispatch();
   const [selectedModifier, setSelectedModifier] = useState<{ name: string, id: number, price: number | null } | null>(null);
   const [quantity, setQuantity] = useState<number>(1);
+  const { t } = useTranslation();
 
   const formattedSelectedProduct = {
     ...selectedProduct,
@@ -59,7 +61,7 @@ function ModalItemContentWrapper({ selectedProduct, closeModal }: { selectedProd
           <>
             <Box className="p-4 bg-tertiary">
               <h1 className="font-bold text-textSecondary">{modifier?.name}</h1>
-              <span className="text-textTertiary">Select 1 option</span>
+              <span className="text-textTertiary">{t('selectOption')}</span>
             </Box>
 
             {modifier?.items?.map(modifierItem => (
@@ -98,9 +100,9 @@ function ModalItemContentWrapper({ selectedProduct, closeModal }: { selectedProd
 
       <Box className="fixed bottom-0 left-0 right-0 w-full p-4 md:hidden">
         {calculateTotalPrice() !== 0 ? (
-          <Button className="w-full !rounded-2xl !bg-primary" variant="contained" onClick={handleClickAddToOrder}>Add to order • {calculateTotalPrice()}</Button>
+          <Button className="w-full !rounded-2xl !bg-primary" variant="contained" onClick={handleClickAddToOrder}>{t('addToOrder')} • {calculateTotalPrice()}</Button>
         ) : (
-          <Button className="w-full !rounded-2xl !bg-gray-300 cursor-not-allowed" variant="contained" disabled>Add to order</Button>
+          <Button className="w-full !rounded-2xl !bg-gray-300 cursor-not-allowed" variant="contained" disabled>{t('addToOrder')}</Button>
         )}
       </Box>
     </Box>
