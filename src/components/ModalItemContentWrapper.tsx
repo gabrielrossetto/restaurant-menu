@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Box, Button, IconButton } from "@mui/material";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircle from '@mui/icons-material/RemoveCircle';
@@ -7,9 +7,13 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useTranslation } from 'react-i18next';
 import { MenuItemType } from "../@types/menu";
 import { addItem } from '../store/reducers/cartReducer';
+import { RootState } from '../store/store';
+import { formatCurrency } from '../utils/currencyFormatter';
+
 
 function ModalItemContentWrapper({ selectedProduct, closeModal }: { selectedProduct: MenuItemType | null, closeModal: () => void }) {
   const dispatch = useDispatch();
+  const { settings } = useSelector((state: RootState) => state.settings);
   const [selectedModifier, setSelectedModifier] = useState<{ name: string, id: number, price: number | null } | null>(null);
   const [quantity, setQuantity] = useState<number>(1);
   const { t } = useTranslation();
@@ -69,7 +73,7 @@ function ModalItemContentWrapper({ selectedProduct, closeModal }: { selectedProd
                 <Box className="flex items-center justify-between px-4">
                   <Box className="flex flex-col items-start justify-center">
                     <h1 className="font-medium text-textPrimary">{modifierItem?.name}</h1>
-                    <h1 className="text-textSecondary">{modifierItem?.price}</h1>
+                    <h1 className="text-textSecondary">{formatCurrency(modifierItem?.price, settings.ccySymbol)}</h1>
                   </Box>
                   <input onClick={() => setSelectedModifier({ name: modifierItem?.name, id: modifierItem?.id, price: modifierItem?.price })} type="radio" className="w-5 h-5 !border-primary accent-primary" checked={selectedModifier !== null && selectedModifier.id === modifierItem.id} />
                 </Box>
@@ -91,7 +95,7 @@ function ModalItemContentWrapper({ selectedProduct, closeModal }: { selectedProd
 
         <Box className="items-center justify-center hidden w-full md:flex">
           {calculateTotalPrice() !== 0 ? (
-            <Button className="w-11/12 !rounded-2xl !bg-primary" variant="contained" onClick={handleClickAddToOrder}>Add to order • {calculateTotalPrice()}</Button>
+            <Button className="w-11/12 !rounded-2xl !bg-primary" variant="contained" onClick={handleClickAddToOrder}>{t('addToOrder')} • {formatCurrency(calculateTotalPrice(), settings.ccySymbol)}</Button>
           ) : (
             <Button className="w-11/12 !rounded-2xl !bg-gray-300 cursor-not-allowed" variant="contained" disabled>Add to order</Button>
           )}
@@ -100,7 +104,7 @@ function ModalItemContentWrapper({ selectedProduct, closeModal }: { selectedProd
 
       <Box className="fixed bottom-0 left-0 right-0 w-full p-4 md:hidden">
         {calculateTotalPrice() !== 0 ? (
-          <Button className="w-full !rounded-2xl !bg-primary" variant="contained" onClick={handleClickAddToOrder}>{t('addToOrder')} • {calculateTotalPrice()}</Button>
+          <Button className="w-full !rounded-2xl !bg-primary" variant="contained" onClick={handleClickAddToOrder}>{t('addToOrder')} • {formatCurrency(calculateTotalPrice(), settings.ccySymbol)}</Button>
         ) : (
           <Button className="w-full !rounded-2xl !bg-gray-300 cursor-not-allowed" variant="contained" disabled>{t('addToOrder')}</Button>
         )}

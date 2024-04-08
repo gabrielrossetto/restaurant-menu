@@ -5,9 +5,11 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useTranslation } from 'react-i18next';
 import { MenuItemType } from "../@types/menu";
 import { RootState } from '../store/store';
+import { formatCurrency } from '../utils/currencyFormatter';
 
 function ItemsListWrapper({ openModal }: { openModal: (item: MenuItemType) => void }) {
   const { menuData, searchFilter } = useSelector((state: RootState) => state.menu);
+  const { settings } = useSelector((state: RootState) => state.settings);
   const [selectedSection, setSelectedSection] = useState<number | null>(null);
   const accordionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const { t } = useTranslation();
@@ -73,7 +75,7 @@ function ItemsListWrapper({ openModal }: { openModal: (item: MenuItemType) => vo
                   <Box className="flex flex-col items-start w-3/5">
                     <span className="font-bold text-textPrimary">{item?.name}</span>
                     {item?.description && <span className="max-w-xs font-light truncate text-textSecondary">{item?.description}</span>}
-                    <span className="font-bold text-textPrimary">R${item?.price}</span>
+                    <span className="font-bold text-textPrimary">{formatCurrency(item?.price, settings.ccySymbol)}</span>
                   </Box>
                   {item?.images && (
                     <Box className="flex flex-col items-start justify-center w-3/12">

@@ -16,8 +16,6 @@ export const fetchSettings = () => {
         i18n.changeLanguage(settings.locale);
       }
 
-      console.log({ settings })
-
       dispatch(fetchSettingsSuccess(settings));
     } catch (error) {
       let message = 'Unknown Error'

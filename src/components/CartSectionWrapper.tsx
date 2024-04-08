@@ -5,9 +5,11 @@ import RemoveCircle from '@mui/icons-material/RemoveCircle';
 import { useTranslation } from 'react-i18next';
 import { RootState } from '../store/store';
 import { incrementQuantity, decrementQuantity } from '../store/reducers/cartReducer';
+import { formatCurrency } from '../utils/currencyFormatter';
 
 function CartSectionWrapper() {
   const { items, total } = useSelector((state: RootState) => state.cart);
+  const { settings } = useSelector((state: RootState) => state.settings);
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -39,7 +41,7 @@ function CartSectionWrapper() {
                       <AddCircleIcon className="text-primary" onClick={() => handleIncrement(item.id)} />
                     </Box>
                   </Box>
-                  <h1 className="font-medium text-textPrimary">{item?.price + (item?.selectedModifierPrice || 0)}</h1>
+                  <h1 className="font-medium text-textPrimary">{formatCurrency(item?.price + (item?.selectedModifierPrice || 0), settings.ccySymbol)}</h1>
                 </Box>
               </Box>
             </Box>
@@ -47,12 +49,12 @@ function CartSectionWrapper() {
 
           <Box className="flex items-center justify-between w-full px-4 border-b-2 shadow bg-tertiary h-14">
             <span className="text-textPrimary">{t('subTotal')}</span>
-            <span className="font-medium text-textPrimary">{total}</span>
+            <span className="font-medium text-textPrimary">{formatCurrency(total, settings.ccySymbol)}</span>
           </Box>
 
           <Box className="flex items-center justify-between w-full px-4 shadow bg-tertiary h-14">
             <span className="text-2xl text-textPrimary">{t('total')}</span>
-            <span className="text-2xl font-medium text-textPrimary">{total}</span>
+            <span className="text-2xl font-medium text-textPrimary">{formatCurrency(total, settings.ccySymbol)}</span>
           </Box>
         </>
       ) : (
