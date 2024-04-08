@@ -36,7 +36,7 @@ function ItemsListWrapper({ openModal }: { openModal: (item: MenuItemType) => vo
   };
 
   return (
-    <Box className="flex h-fit flex-col items-start justify-start w-full md:w-2/3 bg-background shadow-[rgba(0,_0,_0,_0.15)_0px_3px_8px]">
+    <Box className="flex h-fit flex-col items-start justify-start w-full md:w-2/3 bg-background shadow-[rgba(0,_0,_0,_0.15)_0px_3px_8px]" data-testid="items-list-wrapper">
       <Box className="flex items-center justify-center w-full">
         <nav className="flex items-center justify-start w-full p-6 space-x-4 bg-background">
           {filteredItems?.map((section) => (
@@ -75,7 +75,7 @@ function ItemsListWrapper({ openModal }: { openModal: (item: MenuItemType) => vo
                   <Box className="flex flex-col items-start w-3/5">
                     <span className="font-bold text-textPrimary">{item?.name}</span>
                     {item?.description && <span className="max-w-xs font-light truncate text-textSecondary">{item?.description}</span>}
-                    <span className="font-bold text-textPrimary">{formatCurrency(item?.price, settings.ccySymbol)}</span>
+                    <span className="font-bold text-textPrimary">{formatCurrency(item?.price, settings?.ccySymbol)}</span>
                   </Box>
                   {item?.images && (
                     <Box className="flex flex-col items-start justify-center w-3/12">

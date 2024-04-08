@@ -22,7 +22,7 @@ function CartSectionWrapper() {
   };
 
   return (
-    <Box className="w-2/6 bg-background h-fit shadow-[rgba(0,_0,_0,_0.15)_0px_3px_8px] hidden md:block">
+    <Box className="w-2/6 bg-background h-fit shadow-[rgba(0,_0,_0,_0.15)_0px_3px_8px] hidden md:block" data-testid="cart-section-wrapper">
       <Box className="flex items-center justify-start w-full h-16 px-4 shadow bg-tertiary">
         <h1 className="text-2xl font-medium text-textSecondary">{t('basket')}</h1>
       </Box>
@@ -41,7 +41,7 @@ function CartSectionWrapper() {
                       <AddCircleIcon className="text-primary" onClick={() => handleIncrement(item.id)} />
                     </Box>
                   </Box>
-                  <h1 className="font-medium text-textPrimary">{formatCurrency(item?.price + (item?.selectedModifierPrice || 0), settings.ccySymbol)}</h1>
+                  <h1 className="font-medium text-textPrimary">{formatCurrency(item?.price + (item?.selectedModifierPrice || 0), settings?.ccySymbol)}</h1>
                 </Box>
               </Box>
             </Box>
@@ -49,12 +49,12 @@ function CartSectionWrapper() {
 
           <Box className="flex items-center justify-between w-full px-4 border-b-2 shadow bg-tertiary h-14">
             <span className="text-textPrimary">{t('subTotal')}</span>
-            <span className="font-medium text-textPrimary">{formatCurrency(total, settings.ccySymbol)}</span>
+            <span className="font-medium text-textPrimary">{formatCurrency(total, settings?.ccySymbol)}</span>
           </Box>
 
           <Box className="flex items-center justify-between w-full px-4 shadow bg-tertiary h-14">
             <span className="text-2xl text-textPrimary">{t('total')}</span>
-            <span className="text-2xl font-medium text-textPrimary">{formatCurrency(total, settings.ccySymbol)}</span>
+            <span className="text-2xl font-medium text-textPrimary">{formatCurrency(total, settings?.ccySymbol)}</span>
           </Box>
         </>
       ) : (

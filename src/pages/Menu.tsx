@@ -74,7 +74,7 @@ function Menu() {
       </Modal>
 
       {!error && !loading && (
-        <Box className="flex flex-col items-center justify-start w-full h-auto min-h-screen mt-1 bg-secondary">
+        <Box className="flex flex-col items-center justify-start w-full h-auto min-h-screen mt-1 bg-secondary" data-testid="menu-page">
           <Box className="w-11/12 md:w-1/2">
             <TextField
               placeholder={t('searchItemsPlaceholder')}

@@ -50,7 +50,7 @@ function ModalItemContentWrapper({ closeModal }: { closeModal: () => void }) {
                         <AddCircleIcon className="text-primary" onClick={() => handleIncrement(item.id)} />
                       </Box>
                     </Box>
-                    <h1 className="font-medium text-textPrimary">{formatCurrency(item?.price + (item?.selectedModifierPrice || 0), settings.ccySymbol)}</h1>
+                    <h1 className="font-medium text-textPrimary">{formatCurrency(item?.price + (item?.selectedModifierPrice || 0), settings?.ccySymbol)}</h1>
                   </Box>
                 </Box>
               </Box>
@@ -58,12 +58,12 @@ function ModalItemContentWrapper({ closeModal }: { closeModal: () => void }) {
 
             <Box className="flex items-center justify-between w-full px-4 border-b-2 shadow bg-tertiary h-14">
               <span className="text-textPrimary">{t('subTotal')}</span>
-              <span className="font-medium text-textPrimary">{formatCurrency(total, settings.ccySymbol)}</span>
+              <span className="font-medium text-textPrimary">{formatCurrency(total, settings?.ccySymbol)}</span>
             </Box>
 
             <Box className="flex items-center justify-between w-full px-4 shadow bg-tertiary h-14">
               <span className="text-2xl text-textPrimary">{t('total')}</span>
-              <span className="font-medium text-textPrimary">{formatCurrency(total, settings.ccySymbol)}</span>
+              <span className="font-medium text-textPrimary">{formatCurrency(total, settings?.ccySymbol)}</span>
             </Box>
           </div>
         ) : (
