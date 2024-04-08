@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { Box, TextField, InputAdornment, IconButton, Modal } from '@mui/material';
+import { Box, TextField, InputAdornment, IconButton, Modal, Button } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { MenuItemType } from "../@types/menu";
 import ItemsListWrapper from "../components/ItemsListWrapper";
 import CartSectionWrapper from "../components/CartSectionWrapper";
-import ModalContentWrapper from "../components/ModalContentWrapper";
+import ModalItemContentWrapper from "../components/ModalItemContentWrapper";
+import ModalCartContentWrapper from "../components/ModalCartContentWrapper";
 import LoadingSpinner from "../components/LoadingSpinner";
 import GenericErrorMessage from "../components/GenericErrorMessage";
 import { RootState } from '../store/store';
@@ -13,18 +14,25 @@ import { setSearchFilter } from "../store/reducers/menuReducer";
 
 function Menu() {
   const { error, loading, searchFilter } = useSelector((state: RootState) => state.menu);
+  const { items } = useSelector((state: RootState) => state.cart);
   const [selectedProduct, setSelectedProduct] = useState<MenuItemType | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isItemModalOpen, setIsItemModalOpen] = useState(false);
+  const [isCartModalOpen, setIsCartModalOpen] = useState(false);
   const dispatch = useDispatch();
 
-  const openModal = (product: MenuItemType) => {
+  const openItemModal = (product: MenuItemType) => {
     setSelectedProduct(product);
-    setIsModalOpen(true);
+    setIsItemModalOpen(true);
+  };
+
+  const openCartModal = () => {
+    setIsCartModalOpen(true);
   };
 
   const closeModal = () => {
     setSelectedProduct(null);
-    setIsModalOpen(false);
+    setIsItemModalOpen(false);
+    setIsCartModalOpen(false);
   };
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,12 +54,21 @@ function Menu() {
   return (
     <>
       <Modal
-        open={isModalOpen}
+        open={isItemModalOpen}
         onClose={closeModal}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        aria-labelledby="modal-item-title"
+        aria-describedby="modal-item-description"
       >
-        <ModalContentWrapper selectedProduct={selectedProduct} closeModal={closeModal} />
+        <ModalItemContentWrapper selectedProduct={selectedProduct} closeModal={closeModal} />
+      </Modal>
+
+      <Modal
+        open={isCartModalOpen}
+        onClose={closeModal}
+        aria-labelledby="modal-cart-title"
+        aria-describedby="modal-cart-description"
+      >
+        <ModalCartContentWrapper closeModal={closeModal} />
       </Modal>
 
       {!error && !loading && (
@@ -75,10 +92,18 @@ function Menu() {
             />
           </Box>
 
-          <Box className="flex flex-col w-full p-8 mt-1 space-x-4 md:flex-row md:w-1/2 bg-tertiary">
-            <ItemsListWrapper openModal={openModal} />
+          <Box className="flex flex-col w-full mt-1 space-x-4 md:p-8 md:flex-row md:w-1/2 bg-tertiary">
+            <ItemsListWrapper openModal={openItemModal} />
             <CartSectionWrapper />
           </Box>
+
+          {items?.length > 0 && (
+            <Box className="fixed bottom-0 left-0 right-0 p-4 md:hidden">
+              <Button variant="contained" className="w-full !bg-primary !rounded-2xl" onClick={openCartModal}>
+                Your basket • {items?.length} item(s)
+              </Button>
+            </Box>
+          )}
         </Box>
       )}
     </>

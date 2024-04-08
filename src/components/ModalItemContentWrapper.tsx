@@ -7,7 +7,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { MenuItemType } from "../@types/menu";
 import { addItem } from '../store/reducers/cartReducer';
 
-function ModalContentWrapper({ selectedProduct, closeModal }: { selectedProduct: MenuItemType | null, closeModal: () => void }) {
+function ModalItemContentWrapper({ selectedProduct, closeModal }: { selectedProduct: MenuItemType | null, closeModal: () => void }) {
   const dispatch = useDispatch();
   const [selectedModifier, setSelectedModifier] = useState<{ name: string, id: number, price: number | null } | null>(null);
   const [quantity, setQuantity] = useState<number>(1);
@@ -37,7 +37,7 @@ function ModalContentWrapper({ selectedProduct, closeModal }: { selectedProduct:
 
   return (
     <Box className="fixed inset-0 flex items-center justify-center">
-      <Box className="relative max-w-md bg-white shadow-lg !min-w-96 space-y-2 pb-4">
+      <Box className="relative md:max-w-md bg-white shadow-lg !md:min-w-96 space-y-2 pb-4 w-full h-full md:h-fit">
         <Box className="absolute top-0 right-0 z-10 m-2">
           <IconButton className="!text-black !bg-white" onClick={closeModal}>
             <CloseIcon />
@@ -87,17 +87,25 @@ function ModalContentWrapper({ selectedProduct, closeModal }: { selectedProduct:
           </Box>
         </Box>
 
-        <Box className="flex items-center justify-center w-full">
+        <Box className="items-center justify-center hidden w-full md:flex">
           {calculateTotalPrice() !== 0 ? (
-            <Button className="w-4/5 !rounded-2xl !bg-primary" variant="contained" onClick={handleClickAddToOrder}>Add to order • {calculateTotalPrice()}</Button>
+            <Button className="w-11/12 !rounded-2xl !bg-primary" variant="contained" onClick={handleClickAddToOrder}>Add to order • {calculateTotalPrice()}</Button>
           ) : (
-            <Button className="w-4/5 !rounded-2xl !bg-gray-300 cursor-not-allowed" variant="contained" disabled>Add to order</Button>
+            <Button className="w-11/12 !rounded-2xl !bg-gray-300 cursor-not-allowed" variant="contained" disabled>Add to order</Button>
           )}
         </Box>
       </Box>
-    </Box >
+
+      <Box className="fixed bottom-0 left-0 right-0 w-full p-4 md:hidden">
+        {calculateTotalPrice() !== 0 ? (
+          <Button className="w-full !rounded-2xl !bg-primary" variant="contained" onClick={handleClickAddToOrder}>Add to order • {calculateTotalPrice()}</Button>
+        ) : (
+          <Button className="w-full !rounded-2xl !bg-gray-300 cursor-not-allowed" variant="contained" disabled>Add to order</Button>
+        )}
+      </Box>
+    </Box>
   );
 }
 
-export default ModalContentWrapper;
+export default ModalItemContentWrapper;
 

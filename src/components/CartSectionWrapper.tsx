@@ -18,7 +18,7 @@ function CartSectionWrapper() {
   };
 
   return (
-    <Box className="w-2/6 bg-background h-fit shadow-[rgba(0,_0,_0,_0.15)_0px_3px_8px]">
+    <Box className="w-2/6 bg-background h-fit shadow-[rgba(0,_0,_0,_0.15)_0px_3px_8px] hidden md:block">
       <Box className="flex items-center justify-start w-full h-16 px-4 shadow bg-tertiary">
         <h1 className="text-2xl font-medium text-textSecondary">Carrinho</h1>
       </Box>
@@ -33,24 +33,24 @@ function CartSectionWrapper() {
                     {item?.selectedModifierName && <h1 className="text-textTertiary">{item?.selectedModifierName}</h1>}
                     <Box className="flex items-center justify-between space-x-2">
                       <RemoveCircle className="text-primary" onClick={() => handleDecrement(item.id)} />
-                      <span className="font-bold text-primary">{item?.quantity}</span>
+                      <span className="font-bold text-textPrimary">{item?.quantity}</span>
                       <AddCircleIcon className="text-primary" onClick={() => handleIncrement(item.id)} />
                     </Box>
                   </Box>
-                  <h1 className="font-medium text-primary">{item?.price + (item?.selectedModifierPrice || 0)}</h1>
+                  <h1 className="font-medium text-textPrimary">{item?.price + (item?.selectedModifierPrice || 0)}</h1>
                 </Box>
               </Box>
             </Box>
           ))}
 
           <Box className="flex items-center justify-between w-full px-4 border-b-2 shadow bg-tertiary h-14">
-            <span className="text-primary">Sub total</span>
-            <span className="font-medium text-primary">{total}</span>
+            <span className="text-textPrimary">Sub total</span>
+            <span className="font-medium text-textPrimary">{total}</span>
           </Box>
 
           <Box className="flex items-center justify-between w-full px-4 shadow bg-tertiary h-14">
-            <span className="text-2xl text-primary">Total</span>
-            <span className="text-2xl font-medium text-primary">{total}</span>
+            <span className="text-2xl text-textPrimary">Total</span>
+            <span className="text-2xl font-medium text-textPrimary">{total}</span>
           </Box>
         </>
       ) : (

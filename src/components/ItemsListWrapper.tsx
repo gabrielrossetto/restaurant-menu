@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from 'react-redux';
-import { Accordion, AccordionDetails, AccordionSummary, Box } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Box, Button } from "@mui/material";
 import { MenuItemType } from "../@types/menu";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { RootState } from '../store/store';
@@ -83,6 +83,11 @@ function ItemsListWrapper({ openModal }: { openModal: (item: MenuItemType) => vo
             </AccordionDetails>
           </Accordion>
         ))}
+        <Box className="flex items-center justify-center">
+          <Button variant="text" className="w-11/12 !text-primary !font-bold" onClick={() => { }}>
+            View allergy information
+          </Button>
+        </Box>
       </Box>
     </Box>
   );
