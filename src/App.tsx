@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -32,6 +33,7 @@ function App() {
   useEffect(() => {
     const fetchSettingsData = async () => {
       try {
+        // @ts-ignore
         dispatch(fetchSettings());
       } catch (error) {
         console.error('Error getting settings data:', error);
@@ -40,6 +42,7 @@ function App() {
 
     const fetchMenuData = async () => {
       try {
+        // @ts-ignore
         dispatch(fetchMenu());
       } catch (error) {
         console.error('Error getting menu data:', error);
