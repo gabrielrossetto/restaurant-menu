@@ -16,10 +16,6 @@
 
 ---------------------------------------------------------------------
 
-[LIVE DEMO](https://main--unique-kheer-36f9cd.netlify.app/)
-
----------------------------------------------------------------------
-
 ## Installation and Running
 
 1. **Clone the Repository**:

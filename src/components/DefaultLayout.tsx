@@ -2,11 +2,11 @@ import { ReactNode } from "react";
 import NavBar from "./NavBar";
 import Header from "./Header";
 
-interface MobileLayoutProps {
+interface DefaultLayoutProps {
   children: ReactNode;
 }
 
-function MobileLayout({ children }: MobileLayoutProps) {
+function DefaultLayout({ children }: DefaultLayoutProps) {
   return (
     <div className="min-h-screen bg-background">
       <NavBar />
@@ -16,4 +16,4 @@ function MobileLayout({ children }: MobileLayoutProps) {
   );
 }
 
-export default MobileLayout;
+export default DefaultLayout;
