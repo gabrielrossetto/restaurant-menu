@@ -37,5 +37,5 @@
 
 ## Documentation
 
-- [Components Documentation](https://github.com/gabrielrossetto/booking/blob/main/src/docs/components/components.md)
-- [Hooks Documentation](https://github.com/gabrielrossetto/booking/blob/main/src/docs/hooks/hooks.md)
+- [General Documentation](https://github.com/gabrielrossetto/restaurant-menu/blob/main/src/docs/general.md)
+- [Components Documentation](https://github.com/gabrielrossetto/restaurant-menu/blob/main/src/docs/components.md)
